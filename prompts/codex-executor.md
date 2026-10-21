@@ -1,6 +1,4 @@
-# AGENTS.md（HAC-Flow Codex 规则）
-
-版本：v6.2
+# AGENTS.md（HAC-Flow Codex 规则） · v6.2
 
 ## 通用
 - 用中文回复，简洁。
