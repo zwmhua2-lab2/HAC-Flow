@@ -1,21 +1,23 @@
-# AGENTS.md
+# AGENTS.md（HAC-Flow Codex 规则）
 
 ## 通用
 - 用中文回复，简洁。
-- 开工前读仓库根目录 ARCHITECTURE.md 和指定 Issue；读不到就停下报告，不凭记忆编约束。
-- AGENTS.md、ARCHITECTURE.md、Issue 互相冲突，或与现有代码不符时，停下报告，不自行挑一份，不顺手改。
+- 开工前读仓库根目录的 ARCHITECTURE.md 和指定的 Issue；读不到就停下报告，不凭记忆或链接猜内容。
+- AGENTS.md、ARCHITECTURE.md、Issue 三者互相冲突，或与现有代码不符（含 Issue 契约与白名单目录里的现有代码不符）时，停下来报告，不自行选一个，不顺手改。
 
 ## 执行 Issue #N
-1. 基于最新 main 建 task/N 分支；已有同名分支或 PR 先核对状态，不覆盖未提交的工作。
-2. 只改 Issue "允许修改"里列出的文件。红牌文件（ARCHITECTURE.md C5）普通任务一律不碰；
-   专项独立 Issue 中 Human 明确授权的路径除外。
-3. 先把 Given/When/Then 原样写成测试，再写业务代码；不弱化、不删断言迁就实现。
+1. 基于最新 main 创建 task/N 分支；已有同名分支或 PR 时先核对状态，不覆盖未提交的工作。
+2. 只改 Issue "允许修改"里列出的文件。红牌文件（ARCHITECTURE.md C5）一律不碰，除非 Issue 明确授权该文件。
+3. 先把 Given/When/Then 原样写成测试，再写业务代码；不弱化、不删断言、不改测试迁就实现。
 4. 默认不新增依赖；确需新增则停下来问。
-5. Issue 允许时，在 ARCHITECTURE.md 第 7 节追加一行记录，只保留最近 5 条，其余章节不动。
-6. 总改动超过 ARCHITECTURE.md 第 5 节的单 PR 上限（含测试）时，先停下说明、请求拆分，不硬提。
-7. 测试跑通后提 PR（closes #N）。描述写：改动文件、测试命令与实际结果、未验证项、
-   最可能出错的 2 点、每条 GWT 对应哪个测试。涉及 P4 附黄金样本输出。
-8. 没运行的验收不写通过。
+5. Issue 允许时，在 ARCHITECTURE.md 第 7 节追加一行本卡记录（只保留最近 5 条），其余章节不动。
+6. 总改动（含测试）超过 ARCHITECTURE.md 第 5 节的单 PR 行数上限时，先停下说明、请求拆分，不硬提。
+7. 测试跑通后提 PR（closes #N）。描述写明：改动文件、测试命令与实际结果、未验证项、最可能出错的 2 点、每条 GWT 对应的测试。涉及 P4 时附黄金样本输出。
+8. 没实际运行过的验收，不写"通过"。
 
-## 结束边界
-- 到提 PR 为止。不自行 merge、rebase、force push、revert；这些要我对具体动作明确下指令。
+## 打回修复
+- 缺陷偏离 Issue 或架构已有规定：先补一个会失败的测试，再修；不改已有测试。
+- 修复需要新增行为规则：停下来问，由 Human 先更新架构或 Issue。
+
+## 绝对红线
+- 严禁自行 merge、rebase、force push、revert。涉及改写远端历史或合并 PR 的动作，必须等 Human 明确下达指令。你的任务到"提出 PR"为止。
