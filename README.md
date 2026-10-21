@@ -1,24 +1,22 @@
-# HAC-Flow (Human-Agent-Collaboration Flow)
+# HAC-Flow
 
-一套抛弃重型自动化、以“人类传指针、异源 QA 兜底”为核心的极简多智能体开发流水线。
-**核心哲学：0 后台脚本、0 复杂状态机、拒绝标签流转、人类最终把关。**
+一人开发流水线：规划大脑建 Issue → 本地 Codex 实施 → Human 本地验收 → 高风险任务异源 QA → Human 合并。
+无标签、无后台脚本、无任务卡格式审查。
 
-## 👥 角色分工
-- **规划大脑 (ChatGPT)**：负责质疑需求、读架构、建 Issue，并吐出给 Codex 和 QA 的指令。
-- **执行手脚 (本地 Codex)**：读 `AGENTS.md`，建分支、写测试、写代码、提 PR。
-- **异源 QA (DeepSeek/WorkBuddy)**：只在**高风险 PR** 时介入。作为黑盒测试员，写独立探针，抓静默失败和逻辑漏洞。
-- **厂长 (Human)**：负责复制粘贴指令、本地实跑验收、最终审查 Diff 并 Merge。
+## 角色
+- 规划大脑（ChatGPT）：质疑需求，读项目 ARCHITECTURE.md，建 Issue，回复 Issue 链接和一行执行指令。
+- 执行（本地 Codex）：读项目 AGENTS.md，建分支、先写测试、写代码、提 PR。
+- 异源 QA（DeepSeek / WorkBuddy）：仅高风险 PR 介入，写独立探针实跑，输出 PASS / FAIL / BLOCKED 和证据。
+- Human：确认任务，本地实跑验收，决定合并。
 
-## 🔄 标准作业流程 (SOP)
+## 流程
+1. 立项（仅首次）：大脑读 templates/ARCHITECTURE_TEMPLATE.md 生成项目 ARCHITECTURE.md，Human 提交到 main。
+2. 出卡：大脑建 Issue，回复 Issue 链接和一行执行指令。
+3. 开发：Human 把指令交给 Codex，Codex 提 PR。
+4. 验收：低风险 Human 看 Diff 并实跑；高风险再交 QA。风险区域以项目 ARCHITECTURE.md 第 6 节为准。
+5. 合并：对照 templates/MERGE_CHECKLIST.md，Squash and merge。
 
-1. **立项（仅首次）**：让大脑读 `ARCHITECTURE_TEMPLATE.md` 生成当前项目的 `ARCHITECTURE.md`，人工提交到 main。
-2. **出题**：大脑读架构，自动建 Issue，并直接吐出两段代码块（给 Codex 的代码指令 + 给 QA 的验收指令）。
-3. **开发**：你把 Codex 指令复制给本地终端，Codex 跑完测试后提 PR。
-4. **验收（核心防线）**：
-   - *低风险 PR*：你亲自看 Diff，本地实跑，直接 Merge。
-   - *高风险 PR（碰网络/文件读写/并发/正则）*：把 QA 指令和 PR 链接发给 DeepSeek。DeepSeek 跑独立黑盒测试。发现 Bug 打回 Codex 修，直到 DeepSeek 给 `PASS`。
-5. **合并**：对照 `MERGE_CHECKLIST.md` 检查无误后，点击 `Squash and merge`，清理分支。
-
-## 🚫 明确抛弃的历史包袱
-- **不再审查任务卡格式**：ChatGPT 的出卡模板已经锁死了格式，不需要 AI 审 AI。
-- **不再使用任何 GitHub 标签（无 proposed/ready）**：只要人类把指令发给 Codex，它就开始干活；没发，它就不动。
+## 文件
+- prompts/workbuddy-reviewer.md：QA 规则，WorkBuddy 按链接读取，改动即生效
+- templates/ARCHITECTURE_TEMPLATE.md：新项目生成架构时读取
+- templates/MERGE_CHECKLIST.md：合并清单
