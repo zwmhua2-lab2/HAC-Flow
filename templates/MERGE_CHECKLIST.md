@@ -1,4 +1,4 @@
-# 合并检查清单
+# 合并检查清单（HAC-Flow v6.2）
 
 点击 Squash and merge 前逐项确认。
 
