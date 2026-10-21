@@ -1,4 +1,4 @@
-# AGENTS.md（HAC-Flow Codex 规则）
+# AGENTS.md（HAC-Flow Codex 规则）（HAC-Flow v6.2）
 
 ## 通用
 - 用中文回复，简洁。
