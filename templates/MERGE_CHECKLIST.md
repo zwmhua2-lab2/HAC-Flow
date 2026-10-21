@@ -1,10 +1,11 @@
-# 合并检查清单 · v6.2
+# 合并检查清单 · v6.3
 
 点击 Squash and merge 前逐项确认。
 
+- [ ] 本地 `git status` 干净，且本地 AGENTS.md、ARCHITECTURE.md 与远端 main 一致（`git diff origin/main -- AGENTS.md ARCHITECTURE.md` 无输出）。
 - [ ] Files changed 里只有 Issue 允许的文件，没有碰红牌文件（见 ARCHITECTURE.md C5）。
 - [ ] 总改动未超过 ARCHITECTURE.md 第 5 节的单 PR 行数上限。
-- [ ] PR 描述按 AGENTS.md 规则 7 齐全，每条 GWT 都有对应测试。
+- [ ] PR 描述按 AGENTS.md 规则 10 齐全，每条 GWT 都有对应测试。
 - [ ] 我本地拉分支实跑过，结果符合 Issue 的验收标准。
 - [ ] 未验证项我看过，不把"没跑"当"通过"。
 
