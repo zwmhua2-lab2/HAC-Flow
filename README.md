@@ -1,4 +1,4 @@
-# HAC-Flow
+# HAC-Flow（HAC-Flow v6.2）
 
 一人开发流水线：规划大脑出卡建 Issue → 本地 Codex 实施 → Human 本地验收 → 高风险任务异源 QA → Human 合并。
 无标签、无后台脚本、无任务卡格式审查。
