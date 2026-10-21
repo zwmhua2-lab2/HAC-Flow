@@ -1,0 +1,112 @@
+<svg viewBox="0 0 680 830" width="680" height="830" role="img" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif">
+<title>HAC-Flow v6.4 完整流程：角色、停机出口、三条回边</title>
+<desc>主路径按执行者区分：人负责提需求、交指令块、本地验收、合并；大脑出卡；Codex 实施；高风险额外走异源 QA。左侧标出停机出口，底部标出 FAIL 后的三条回边。</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+<rect x="0" y="0" width="680" height="830" rx="12" fill="#0F1216"/>
+
+<text x="40" y="28" font-size="14" font-weight="500" fill="#D3D1C7">HAC-Flow v6.4：谁在做、哪里停、错了回哪</text>
+<text x="40" y="50" font-size="12" fill="#888780">实线框＝人，虚线框＝AI；左侧红＝停机出口，右下橙＝FAIL 后的三条回边</text>
+
+<g>
+<rect x="140" y="76" width="260" height="48" rx="8" fill="#085041" stroke="#5DCAA5" stroke-width="0.5"/>
+<text x="270" y="92" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#9FE1CB">① 提需求　人</text>
+<text x="270" y="110" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#5DCAA5">答三件事，能砍先砍</text>
+</g>
+<line x1="270" y1="124" x2="270" y2="152" stroke="#9FE1CB" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<g>
+<rect x="140" y="156" width="260" height="48" rx="8" fill="#0C447C" stroke="#85B7EB" stroke-width="0.5" stroke-dasharray="5 3"/>
+<text x="270" y="172" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#B5D4F4">② 出卡 8 段　大脑</text>
+<text x="270" y="190" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#85B7EB">缺一项、读不到架构，不出卡</text>
+</g>
+<line x1="270" y1="204" x2="270" y2="232" stroke="#85B7EB" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<g>
+<rect x="140" y="236" width="260" height="48" rx="8" fill="#085041" stroke="#5DCAA5" stroke-width="0.5"/>
+<text x="270" y="252" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#9FE1CB">③ 交指令块　人</text>
+<text x="270" y="270" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#5DCAA5">只传指针，不搬代码和日志</text>
+</g>
+<line x1="270" y1="284" x2="270" y2="312" stroke="#85B7EB" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<g>
+<rect x="140" y="316" width="260" height="48" rx="8" fill="#0C447C" stroke="#85B7EB" stroke-width="0.5" stroke-dasharray="5 3"/>
+<text x="270" y="332" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#B5D4F4">④ 实施 → PR　Codex</text>
+<text x="270" y="350" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#85B7EB">8 条停工条件，到提 PR 为止</text>
+</g>
+<line x1="270" y1="364" x2="270" y2="392" stroke="#9FE1CB" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<g>
+<rect x="140" y="396" width="260" height="48" rx="8" fill="#085041" stroke="#5DCAA5" stroke-width="0.5"/>
+<text x="270" y="412" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#9FE1CB">⑤ 本地验收　人</text>
+<text x="270" y="430" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#5DCAA5">6 步，含失败路径与越权自查</text>
+</g>
+<line x1="270" y1="444" x2="270" y2="462" stroke="#B4B2A9" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<g>
+<polygon points="270,466 370,500 270,534 170,500" fill="#2C2C2A" stroke="#B4B2A9" stroke-width="0.5"/>
+<text x="270" y="500" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#D3D1C7">命中第 6 节风险？</text>
+</g>
+
+<line x1="370" y1="500" x2="416" y2="500" stroke="#85B7EB" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="392" y="490" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#85B7EB">高</text>
+
+<g>
+<rect x="420" y="470" width="220" height="56" rx="8" fill="#0C447C" stroke="#85B7EB" stroke-width="0.5" stroke-dasharray="5 3"/>
+<text x="530" y="488" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#B5D4F4">⑥ 异源 QA　另一家模型</text>
+<text x="530" y="508" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#85B7EB">3–5 探针，PASS 才放行</text>
+</g>
+
+<line x1="270" y1="534" x2="270" y2="562" stroke="#9FE1CB" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="280" y="548" dominant-baseline="central" font-size="11" fill="#9FE1CB">低</text>
+
+<g>
+<rect x="140" y="566" width="260" height="48" rx="8" fill="#085041" stroke="#9FE1CB" stroke-width="1.5"/>
+<text x="270" y="582" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#9FE1CB">⑦ 合并　人</text>
+<text x="270" y="600" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#5DCAA5">唯一不可让渡的权力，不外包</text>
+</g>
+
+<path d="M530 526 L530 590 L404 590" fill="none" stroke="#85B7EB" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="540" y="562" font-size="11" fill="#85B7EB">PASS</text>
+
+<line x1="140" y1="180" x2="104" y2="180" stroke="#A32D2D" stroke-width="1" stroke-dasharray="3 3"/>
+<circle cx="100" cy="180" r="2.5" fill="#F09595"/>
+<text x="92" y="180" text-anchor="end" dominant-baseline="central" font-size="11" fill="#F09595">无架构</text>
+
+<line x1="140" y1="340" x2="104" y2="340" stroke="#A32D2D" stroke-width="1" stroke-dasharray="3 3"/>
+<circle cx="100" cy="340" r="2.5" fill="#F09595"/>
+<text x="92" y="340" text-anchor="end" dominant-baseline="central" font-size="11" fill="#F09595">冲突即停</text>
+
+<line x1="140" y1="420" x2="104" y2="420" stroke="#A32D2D" stroke-width="1" stroke-dasharray="3 3"/>
+<circle cx="100" cy="420" r="2.5" fill="#F09595"/>
+<text x="92" y="420" text-anchor="end" dominant-baseline="central" font-size="11" fill="#F09595">脏即停</text>
+
+<text x="40" y="650" font-size="12" font-weight="500" fill="#EF9F27">FAIL / BLOCKED 之后：三条回边，不许 AI 自己选</text>
+
+<g>
+<rect x="40" y="668" width="150" height="44" rx="8" fill="#501313" stroke="#F09595" stroke-width="0.5"/>
+<text x="115" y="690" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="500" fill="#F7C1C1">FAIL / BLOCKED</text>
+</g>
+
+<g>
+<rect x="356" y="662" width="284" height="40" rx="8" fill="#633806" stroke="#EF9F27" stroke-width="0.5"/>
+<text x="368" y="682" dominant-baseline="central" font-size="11" fill="#FAC775">① 代码错 → Codex，改同一个 PR</text>
+</g>
+<g>
+<rect x="356" y="710" width="284" height="40" rx="8" fill="#633806" stroke="#EF9F27" stroke-width="0.5"/>
+<text x="368" y="730" dominant-baseline="central" font-size="11" fill="#FAC775">② 规则缺 → 你改 ARCHITECTURE.md</text>
+</g>
+<g>
+<rect x="356" y="758" width="284" height="40" rx="8" fill="#633806" stroke="#EF9F27" stroke-width="0.5"/>
+<text x="368" y="778" dominant-baseline="central" font-size="11" fill="#FAC775">③ 需求错 → 大脑，改 Issue 或重出卡</text>
+</g>
+
+<path d="M190 690 L290 690 L290 682 L350 682" fill="none" stroke="#EF9F27" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+<path d="M190 690 L350 730" fill="none" stroke="#EF9F27" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+<path d="M190 690 L290 690 L290 778 L350 778" fill="none" stroke="#EF9F27" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+
+<text x="40" y="818" font-size="11" fill="#888780">红＝停机出口　橙＝回边　虚线框＝AI 产出；人工节点 4 个，AI 节点 3 个</text>
+</svg>

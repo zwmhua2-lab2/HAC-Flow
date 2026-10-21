@@ -16,6 +16,12 @@
 4. **验收**：低风险 Human 看 Diff 并实跑；高风险再对大脑说"出质检指令"，把输出贴到新对话。风险区域以项目 ARCHITECTURE.md 第 6 节为准。
 5. **合并**：对照 templates/MERGE_CHECKLIST.md，Squash and merge。
 
+## 流程图
+
+![HAC-Flow v6.4 流程图](assets/hac-flow-v6.4.svg)
+
+实线框为人工节点（提需求、交指令块、本地验收、合并），虚线框为 AI 节点（出卡、实施、异源 QA）。左侧红色为停机出口，橙色为 FAIL / BLOCKED 后的三条回边：代码错回 Codex、规则缺由 Human 改架构、需求错回大脑。
+
 ## 文件与部署位置
 | 文件 | 部署到 |
 | :--- | :--- |
