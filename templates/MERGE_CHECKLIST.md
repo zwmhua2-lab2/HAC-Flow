@@ -1,22 +1,33 @@
-# 人工合并最终检查清单 (Merge Checklist)
+# HAC-Flow
 
-在点击 `Squash and merge` 前，请确认以下基础事项：
+一人开发流水线：规划大脑出卡建 Issue → 本地 Codex 实施 → Human 本地验收 → 高风险任务异源 QA → Human 合并。
+无标签、无后台脚本、无任务卡格式审查。
 
-- [ ] **是否越权？** 点开 `Files changed`，确认没有修改任何未授权的文件。
-- [ ] **是否碰红线？** 检查有没有动 `.github/`、`package.json` 等红牌文件（如有，必须要求拆独立 Issue 并亲自审查）。
-- [ ] **代码量是否失控？** 如果改动 >300 行，说明任务切得不够细，退回重做。
-- [ ] **PR 描述是否合规？** Codex 是否老实汇报了“最可能出错的 2 个点”？
+## 角色
+- **规划大脑（ChatGPT）**：质疑需求，读项目 ARCHITECTURE.md，建 Issue，回复 Issue 链接和一个执行指令块；高风险 PR 时出质检指令。
+- **执行（本地 Codex）**：读 AGENTS.md，建分支、先写测试、写代码、提 PR。到提 PR 为止。
+- **异源 QA（WorkBuddy / DeepSeek）**：只处理高风险 PR，在新对话里按质检指令写独立探针实跑，输出 PASS / FAIL / BLOCKED 和证据。
+- **Human**：确认任务，本地实跑验收，决定合并。
 
-**【核心门禁：风险分级与异源审查】**
+## 流程
+1. **立项（仅首次）**：大脑读 templates/ARCHITECTURE_TEMPLATE.md 生成项目 ARCHITECTURE.md，Human 提交到 main。
+2. **出卡**：大脑建 Issue，回复 Issue 链接和执行指令块。
+3. **开发**：Human 把指令块交给 Codex，Codex 提 PR。
+4. **验收**：低风险 Human 看 Diff 并实跑；高风险再对大脑说"出质检指令"，把输出贴到新对话。风险区域以项目 ARCHITECTURE.md 第 6 节为准。
+5. **合并**：对照 templates/MERGE_CHECKLIST.md，Squash and merge。
 
-风险判定以当前项目 `ARCHITECTURE.md` 定义的风险区域为准，不因“纯 UI”或“工具函数”就直接判定为低风险。
+## 文件与部署位置
+| 文件 | 部署到 |
+| :--- | :--- |
+| prompts/chatgpt-brain.md | GPT 设置（自定义指令）。先填两处【】：项目仓库名、项目本地路径 |
+| prompts/codex-executor.md | `~/.codex/AGENTS.md`（全局）或项目根目录 `AGENTS.md`，二选一，不要两处都放 |
+| prompts/workbuddy-global.md | WorkBuddy 全局指令 |
+| prompts/qa-prompt.md | 不部署。大脑出质检指令时读取 |
+| templates/ARCHITECTURE_TEMPLATE.md | 不部署。新项目生成 ARCHITECTURE.md 时读取 |
+| templates/MERGE_CHECKLIST.md | 不部署。合并前对照 |
 
-**情况 1：未命中风险区域（低风险）**
-- [ ] Human 亲自核对 Diff、本地实跑验收、检查未验证项，确认无误后合并。
-
-**情况 2：命中风险区域（高风险：如网络请求、读写文件、正则解析、并发等）**
-- [ ] **必须进行异源审查**：将 Issue 契约和 PR 链接发给大脑让大脑出质检指令。
-- [ ] 要求异源 AI 作为独立黑盒 QA，直接运行代码或写独立测试探针（不要让它只看代码）。
-- [ ] **人工过滤 AI 报告**：绝不信它的“过度防御建议”（如 fsync、防掉电），只采纳它发现的“静默降级、数据污染、逻辑死结”等真实缺陷。
-- [ ] 如果异源审查发现真实 Bug，由你打回给 Codex 修复，修复后重新验收。
-- [ ] 拿到异源审查的 `PASS`（或修复后的 `PASS`）后，方可合并。
+## 维护
+- 只在本仓库改规则，再复制到部署位置；不直接改 GPT 设置或本地 AGENTS.md。
+- 改完验证：问 GPT"任务卡模板有哪几个二级标题"；Codex 运行 `codex --ask-for-approval never "Summarize the current instructions."` 看它复述的内容。
+- 已有项目的 ARCHITECTURE.md 是一次性实例，模板改了要手动补。
+- 同类问题漏过两次，才加规则；每跑完 10 张卡扫一遍，删掉从没触发过的规则。
