@@ -1,14 +1,14 @@
-<svg viewBox="0 0 680 920" width="680" height="920" role="img" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif">
-<title>HAC-Flow v6.4 完整流程：角色、停机出口、QA 门禁、三条回边</title>
-<desc>主路径按执行者区分：人负责提需求、交指令块、本地验收、合并；大脑出卡；Codex 实施；高风险额外走异源 QA，并须确认 QA 结论已贴 PR 且被测 commit 等于最新 commit 才能合并。左侧为停机出口，底部为 FAIL 后的三条回边。</desc>
+<svg viewBox="0 0 680 960" width="680" height="960" role="img" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif">
+<title>HAC-Flow v6.5 完整流程：角色、停机出口、QA 门禁、三条回边</title>
+<desc>主路径按执行者区分：人负责提需求、交指令块、本地验收、合并；大脑出卡；Codex 实施；高风险额外走异源 QA，并须确认 QA 结论已贴 PR 且被测 commit 等于最新 commit 才能合并。FAIL 走三条回边；BLOCKED 表示无法验证，补齐条件后回到异源 QA 重新质检。</desc>
 <defs>
 <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
 <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </marker>
 </defs>
-<rect x="0" y="0" width="680" height="920" rx="12" fill="#0F1216"/>
+<rect x="0" y="0" width="680" height="960" rx="12" fill="#0F1216"/>
 
-<text x="40" y="28" font-size="14" font-weight="500" fill="#D3D1C7">HAC-Flow v6.4：谁在做、哪里停、错了回哪</text>
+<text x="40" y="28" font-size="14" font-weight="500" fill="#D3D1C7">HAC-Flow v6.5：谁在做、哪里停、错了回哪</text>
 <text x="40" y="50" font-size="12" fill="#888780">实线框＝人，虚线框＝AI；左侧红＝停机出口，右下橙＝FAIL 后的三条回边</text>
 
 <g>
@@ -96,11 +96,11 @@
 <circle cx="100" cy="420" r="2.5" fill="#F09595"/>
 <text x="92" y="420" text-anchor="end" dominant-baseline="central" font-size="11" fill="#F09595">脏即停</text>
 
-<text x="40" y="726" font-size="12" font-weight="500" fill="#EF9F27">FAIL / BLOCKED 之后：三条回边，不许 AI 自己选</text>
+<text x="40" y="726" font-size="12" font-weight="500" fill="#EF9F27">FAIL 之后：三条回边，不许 AI 自己选</text>
 
 <g>
 <rect x="40" y="744" width="150" height="44" rx="8" fill="#501313" stroke="#F09595" stroke-width="0.5"/>
-<text x="115" y="766" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="500" fill="#F7C1C1">FAIL / BLOCKED</text>
+<text x="115" y="766" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="500" fill="#F7C1C1">FAIL</text>
 </g>
 
 <g>
@@ -120,5 +120,18 @@
 <path d="M190 766 L350 806" fill="none" stroke="#EF9F27" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
 <path d="M190 766 L290 766 L290 854 L350 854" fill="none" stroke="#EF9F27" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
 
-<text x="40" y="888" font-size="11" fill="#888780">红＝停机出口　橙＝回边　虚线框＝AI 产出　｜　随时可发「下一步」，大脑读 Issue 与 PR 给出唯一建议</text>
+<g>
+<rect x="40" y="886" width="150" height="44" rx="8" fill="#501313" stroke="#F09595" stroke-width="0.5"/>
+<text x="115" y="908" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="500" fill="#F7C1C1">BLOCKED</text>
+</g>
+
+<g>
+<rect x="356" y="882" width="284" height="42" rx="8" fill="#501313" stroke="#F09595" stroke-width="0.5"/>
+<text x="368" y="896" dominant-baseline="central" font-size="11" fill="#F7C1C1">↩ 回到 ⑥：补齐条件后重新质检</text>
+<text x="368" y="912" dominant-baseline="central" font-size="11" fill="#F09595">无法拉取 / 无法运行 / HEAD 不一致，不是代码错</text>
+</g>
+
+<path d="M190 908 L290 908 L290 903 L350 903" fill="none" stroke="#F09595" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+
+<text x="40" y="948" font-size="11" fill="#888780">红＝停机出口　橙＝回边　虚线框＝AI 产出　｜　BLOCKED 不改代码、不改规则，只补条件重检</text>
 </svg>
