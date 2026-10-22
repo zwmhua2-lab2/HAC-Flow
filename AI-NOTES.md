@@ -14,7 +14,7 @@
 
 | # | 动作 | 完成标志 |
 | :--- | :--- | :--- |
-| 1 | 读完本文件 | 能说出 §2 的 3 项裁决、§3 的 7 处缺陷、§5 的 6 项未决 |
+| 1 | 读完本文件 | 能说出 §2 的 3 项裁决、§3 的 6 处缺陷、§5 的 5 项未决 |
 | 2 | `git fetch`，比对本地 `HEAD` 与 `origin/main` | 报告差异；落后时等 Human 说覆盖，不自行处理 |
 | 3 | 读 `README.md`，再按任务类型读对应角色文件（`git show origin/main:<path>`） | 能说出 4 个角色（大脑 / Codex / 异源 QA / Human）各自做到哪一步为止 |
 | 4 | 查两处漂移：9 处版本号是否一致、部署副本是否与仓库同版 | 有差异立即报告，不自行统一 |
@@ -38,12 +38,12 @@
 | # | 动作 | 原因 |
 | :--- | :--- | :--- |
 | 1 | 一律 `git show origin/main:<path>` 读正文 | 本地工作区可能落后或有未提交改动，不能当现状 |
-| 2 | 引用写 `文件:行号`，**禁止引用 §x.y** | 仓库 10 个文件里没有任何编号章节（实测 `git grep "§"` 零命中） |
-| 3 | 引用时带版本号（各文件标题首行，当前 v6.4） | 9 处版本号不一致即规则漂移，报告，不自行统一 |
+| 2 | 引用写 `文件:行号`，**禁止引用 §x.y** | 除本文件外，仓库 11 个文件里没有编号章节（`git grep "§"` 只命中本文件的交叉引用） |
+| 3 | 引用时带版本号（各文件标题首行，当前 v6.5） | 9 处版本号不一致即规则漂移，报告，不自行统一 |
 | 4 | 判断「当前进度」只看 open Issue、open PR、`git log` | 聊天记录、决策档案里的编号都是历史 |
 | 5 | 读不到 `ARCHITECTURE.md` 就停，不编硬约束编号 | `prompts/chatgpt-brain.md:46`；规则仓库本身没有该文件，属正常 |
 
-**仓库全部文件（10 个）**：`README.md`、`CHANGELOG.md`、`assets/hac-flow-v6.4.svg`、`prompts/` 5 份、`templates/` 2 份。文件外的任何章节号、编号、PR 号都不属于本仓库。
+**仓库全部文件（11 个）**：`README.md`、`CHANGELOG.md`、`AI-NOTES.md`、`assets/hac-flow-v6.5.svg`、`prompts/` 5 份、`templates/` 2 份。文件外的任何章节号、编号、PR 号都不属于本仓库。
 
 ---
 
@@ -90,17 +90,16 @@
 
 | 位置 | 残留文字 | 实际口径 |
 | :--- | :--- | :--- |
-| `prompts/qa-prompt.md:46`<br>`prompts/workbuddy-reviewer.md:42` | `原因：<缺什么：无法拉取、无法运行、缺链接、HEAD 与被测 commit 不一致>` | 「缺链接」不产生 BLOCKED；缺输入先只问一次（§2.1） |
-| `prompts/qa-prompt.md:23` | `如果 PR 自带测试失败，直接输出 FAIL` | 断言失败 → FAIL；测试因环境/依赖无法启动 → BLOCKED |
-| `prompts/workbuddy-reviewer.md:19` | `测试失败直接输出 FAIL` | 同上 |
+| `prompts/qa-prompt.md:25` | `如果 PR 自带测试失败，直接输出 FAIL` | 断言失败 → FAIL；测试因环境/依赖无法启动 → BLOCKED |
+| `prompts/workbuddy-reviewer.md:21` | `测试失败直接输出 FAIL` | 同上 |
 | `prompts/qa-prompt.md:9` | `信息不全时，只按【输入】提问` | 与 `workbuddy-reviewer.md:8` 对齐：**只问一次**，问完停下 |
 | `templates/MERGE_CHECKLIST.md:8` | `PR 描述按 AGENTS.md 规则 10 齐全` | 错引一位。PR 描述要求是 `codex-executor.md:17` 的**规则 9**；规则 10 是「没实际运行过的验收，不写通过」 |
 | `README.md:26–33` | 部署表 6 行，缺 `prompts/workbuddy-reviewer.md` | 已知缺口，Human 决定**不补**。不要提议补全，也不要因此认为该文件不部署 |
 | `prompts/chatgpt-brain.md:40–41` | 【项目仓库名】【项目本地路径】仍是占位符 | 逐项目填写，属正常状态，不是缺陷 |
 
-**部署事实（2026-10-22 报告值，未复验）**：
+**部署事实（2026-10-22 已复验）**：
 
-- Codex 规则实际部署在 `E:/Documents/AI-Developer/codex-data/AGENTS.md`（全局），与 `prompts/codex-executor.md` 内容一致，仅可能差末尾换行。
+- Codex 规则实际部署在 `E:/Documents/AI-Developer/codex-data/AGENTS.md`（全局），与 `prompts/codex-executor.md` 逐字节一致（含末尾换行）。
 - 部署副本与仓库出现漂移时：**报告差异，等 Human 指令**。规则只在本仓库改，再复制出去；反向覆盖需 Human 明确同意。
 
 ---
@@ -143,12 +142,11 @@ Human 拥有标准，大脑只是起草人。大脑把需求与 `ARCHITECTURE.md
 
 | 项 | 状态 | 备注 |
 | :--- | :--- | :--- |
-| 版本号是否升 v6.5 | 未决 | 需先有规则文字改动；§3 的缺陷不修，故暂不升 |
 | `verify` 脚本（把 6 步验收命令固化） | 未决，未写 | 提案阶段，需 Human 批 |
 | 小卡快通道（单文件、<30 行、无写盘/网络/鉴权 → 不出卡不 QA） | 未批 | 提案阶段 |
 | QA 每卡人工耗时 20–50 min | 未验证 | 按经验估，无计时实测 |
 | Codex 能否用 `gh issue view` 自行拉取 Issue 正文 | 未验证 | 未实测 |
-| 部署副本路径与内容 | 2026-10-22 报告值 | 未复验 |
+| 部署副本路径与内容 | 2026-10-22 已复验 | 与仓库同版，逐字节一致 |
 
 ---
 
