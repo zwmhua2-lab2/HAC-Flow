@@ -1,8 +1,9 @@
 # 更新日志 · v6.6
 ## v6.6
 - WorkBuddy 全局指令重写：岗位改为审阅、核对、整理与建议；默认只看不动；执行类请求须先复述动作、经 Human 明确许可后才做；删除"做QA 时读取 workbuddy-reviewer.md"入口。
-- `prompts/workbuddy-reviewer.md` 正文改为与全局指令同一份文本；QA 判法正文只保留在 `prompts/qa-prompt.md`。
-- 9 处版本号统一 v6.6。
+- 删除 `prompts/workbuddy-reviewer.md`（v6.6 初版误覆盖为全局指令）；QA 判法只保留在 `prompts/qa-prompt.md`。
+- 角色表落地到 README；质检统一交给 DeepSeek，WorkBuddy 只做小助手。
+- 现存 8 个文件版本号统一 v6.6。
 
 ## v6.5
 - QA：输入不全只提问；BLOCKED 仅用于无法验证（拉取/运行失败、HEAD 不一致）；测试断言失败与探针复现缺陷归 FAIL。

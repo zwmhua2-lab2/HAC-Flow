@@ -4,10 +4,14 @@
 无标签、无后台脚本、无任务卡格式审查。
 
 ## 角色
-- **规划大脑（ChatGPT）**：质疑需求，读项目 ARCHITECTURE.md，建 Issue，回复 Issue 链接和一个执行指令块；高风险 PR 时出质检指令。
-- **执行（本地 Codex）**：读 AGENTS.md，建分支、先写测试、写代码、提 PR。到提 PR 为止。
-- **异源 QA（WorkBuddy / DeepSeek）**：只处理高风险 PR，在新对话里按质检指令写独立探针实跑，输出 PASS / FAIL / BLOCKED 和证据。
-- **Human**：确认任务，本地实跑验收，决定合并。
+
+| 岗位 | 做什么 | 不做什么 |
+|---|---|---|
+| 人（Human） | 定需求、批准架构修订、本地验收、合并 | — |
+| 小助手（WorkBuddy） | 审阅、核对、整理、给建议 | 不执行、不写文件、不推送、不出卡、不做质检 |
+| 大脑（ChatGPT） | 质疑需求、出卡、建 Issue、出质检指令 | 不写代码、不跑测试、不 merge |
+| 执行（本地 Codex） | 建 `task/N` 分支、先写测试、写代码、提 PR | 不 merge，不改红牌，不改 main |
+| 质检员（DeepSeek） | 只读 PR，跑探针，输出 PASS / FAIL / BLOCKED | 不写仓库，不发评论 |
 
 ## 流程
 1. **立项（仅首次）**：大脑读 templates/ARCHITECTURE_TEMPLATE.md 生成项目 ARCHITECTURE.md，Human 提交到 main。
